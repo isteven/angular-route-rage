@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp" id="ng-app">
+<head>
+
+    <title>AngularJS Route Rage directive | Use $routeParams variable in your view!</title>        
+    
+    <style>
+        body {
+            font-family: 'Arial';
+            font-size: 14px;
+            background-color: #fff;            
+            line-height:1.4;            
+        }
+        #container {
+            margin: 0px auto; 
+            padding: 15px 50px;
+        }
+        pre {
+            word-wrap: break-word;   
+            margin: 0px;
+            margin-bottom: 14px;
+        }
+
+        code {            
+            background-color: #f6f6f6;
+            display: inline-block;
+            border: 1px solid #ccc !important;
+            padding: 0 2px 0 2px !important; 
+        }
+
+        pre code {
+            padding: 10px !important; 
+        }
+
+        h1 {
+            font-size: 3em;
+            padding: 0;
+            margin: 0;
+        }
+        h2 {
+            display: inline-block;
+            margin-top:35px;
+            margin-bottom: 15px;
+            width:100%;
+            height:28px;
+            border-bottom:1px solid #ccc;
+        }
+        h3 {
+            display: inline-block;
+            width: 100%;
+            margin-top: 25px;
+        }
+        .attrs  {
+            margin-bottom:10px;
+        }
+        .col {
+            display: inline-block;
+            float: left;
+            margin-right:15px;
+        }
+        .inlinefauxcode {           
+            font-family: monospace !important;
+            padding: 1px;
+            position:relative;
+            top:-2px;
+            border: 1px solid #ccc;
+            background-color: #F8F8F8;
+        }
+        .fauxcode {
+            border: 1px solid #ccc;
+            background-color: #F8F8F8;
+            padding: 10px !important;
+        }
+        div.fauxcode, .fauxcode td {
+            font-family: monospace !important;
+            padding-right:10px;
+            vertical-align: top;
+            white-space: nowrap;
+        }
+        .download {
+            border-radius:5px;
+            border:1px solid #ccc;
+            display:table-cell;
+            color:#333;
+            font-weight:bold;
+            font-size:17px;
+            height:30px;
+            line-height:25px;
+            text-decoration:none;
+            text-align:center;
+            vertical-align:middle;
+            position: relative;
+            -moz-border-colors: none;
+            background-color: #E6E6E6;
+            background-image: linear-gradient(#FAFAFA, #EAEAEA);
+            background-repeat: no-repeat;
+            border-color: #D4D4D4 #D4D4D4 #BCBCBC;
+            border-image: none;
+            border-style: solid;
+            border-width: 1px;
+
+            padding:10px;
+        }
+        .download:hover {
+            background-color: #e6e6e6;
+            background-image: linear-gradient(#599bdc, #307bd3);   
+            border-width: 1px;
+            border-color: #518cc6 #518cc6 #2a65a0;
+            color: #fff;
+            text-shadow: 1px 1px 0px #333;
+            -webkit-filter: grayscale(0%);
+        }
+        .download img {            
+            height: 25px;
+            float: left;
+            padding-right:10px;
+        }       
+        .grey {
+            color: #999;
+        }
+    </style>   
+
+    <link rel="stylesheet" href="highlight/styles/default.css">
+    <link rel="stylesheet" href="highlight/styles/github.css">
+
+</head>
+
+    <div id="container">
+        <h1>AngularJS RouteRage</h1>
+        <h4 style="position:relative;top:-20px">An AngularJS directive which allows you to directly use $routeParams variables in your view
+            <br />Version: 1.0.0
+        </h4>                        
+                
+        <div hljs source='"<span isteven-rr>
+    Your $routeParams says: [[param1]] [[param2]]
+</span>"'>
+        </div>
+        Result: 
+        <span style="position:relative;top:-25px" isteven-rr>                            
+            <h3>Your $routeParams says: [[param1]] [[param2]]</h3>        
+        </span>        
+
+        <br />
+
+        <a href="https://github.com/isteven/angular-route-rage" class="download" >
+            <div class="fa fa-github fa-lg">
+            </div>
+            &nbsp; View on Github
+        </a>                
+        
+        <h2>Features</h2>
+        <ul>
+            <li>Use $routeParams variables in your view directly. No more copying $routeParams to $scope.</li> 
+            <li>Using [[ ... ]] brackets to differentiate it from $scope variables.</li>
+            <li>Trigger it once on an element and use it anywhere within the element.</li>
+            <li>Allows you to use simple expressions with your $routeParams, for example: [[productId + 1]].</li>            
+            <li>Auto clean up unused [[ ... ]] variables, except on errors.</li>
+            <li>Pure AngularJS. No extra dependency.</li>
+        </ul> 
+
+<h2>Usage</h2>
+Include the required files. We'll need the AngularJS, angular-route, and the angular-route-rage javascripts.
+<div hljs>
+<script src="angular.min.js"></script>
+<script src="angular-route.min.js"></script>    
+...
+<script src="angular-route-rage.js"></script>    
+...
+</div>
+
+Load the directive into your AngularJS app. This directive also requires angular-route (ngRoute) module, so don't forget to load it as well:
+<div hljs>
+angular.module('myApp', [
+  'ngRoute',  
+  'isteven-rr'
+   ...
+]);
+</div>
+
+Obviously you need to set the routing in your AngularJS application. Take note of the $routeParams variables; <code>param1</code> and <code>param2</code>. We'll use them on the examples below.
+<div hljs>
+...
+angular.module( 'myApp' ).config( [ '$routeProvider', function( $routeProvider ) {
+    $routeProvider.when( '/view1/:param1/:param2', {
+        templateUrl: 'view1/view1.html',
+        controller: 'View1Ctrl'
+    });  
+}])
+...
+</div>
+
+Define the directive in your view, such as:<br />
+<div hljs source='"<a href=\"#/view1/[[param1]]/[[param2]]\" isteven-rr>
+    Link
+</a>"'>
+</div>
+<strong>!IMPORTANT</strong>: this directive is attribute only!
+
+<h2>Other Samples</h2>
+
+<h4>1) Use it on an element.</h4>
+<div hljs source='"<div isteven-rr data-holder1=\"[[param1]]\" data-holder2=\"[[param2]]\">
+</div>"'>
+</div>
+
+<h4>2) Well, once you define it on an element, you can use it anywhere inside that element.</h4>
+<div hljs source='"<div isteven-rr>
+    Your $routeParams says: [[param1]] [[param2]]
+</div>"'>
+</div>
+Yes, you can even use it on the <code> body </code> tag & process everything inside it, but on extreme cases, it might slow down your system, so be considerate.
+
+<h4>3) Accept simple expressions</h4>
+<div hljs source='"<a isteven-rr href=\"#/product/[[categoryId]]/[[subCategoryId]]/[[productId - 1]]\">
+    &laquo; Prev
+</a>"'>
+</div>
+<div hljs source='"<a isteven-rr href=\"#/product/[[categoryId]]/[[subCategoryId]]/[[productId + 1]]\">
+    Next &raquo; 
+</a>"'>
+</div>
+
+or
+<div hljs source='"<div isteven-rr>
+    Param 1 + Param 2 = [[param1 + param2]]
+</div>"'>
+</div>
+Take note that this will only work if the expression is $eval()-able. For example, 10 * 6 will return 60, but "lorem ipsum" + 5 will return undefined (Or worse - I'm not responsible for that). 
+<br />If it's $eval()-able but still doesn't work.. well maybe your expression is too complicated, sorry :)
+
+        <h2>Dependency</h2>
+        AngularJS v1.2.1. Other versions may or may not work. Please test first.
+
+        <h2>Browser Compatibility</h2>
+        Tested on:
+        <ul>
+            <li>Opera >= 12.16 (Yes, I love Opera browser! Download yours here: <a href="http://www.opera.com/">http://www.opera.com/</a>)</li>
+            <li><strike>IE8</strike> IE: At the moment I don't have access to IE9 and above, so please test first before you use this on production environment.</li>
+            <li>Firefox >= 27</li>
+            <li>Google Chrome >= 33</li>
+            <li>Might work on some mobile browsers. Please test first before you use this on production environment.</li>
+        </ul>
+
+        <h2>Bug Reporting</h2>
+        <ul>            
+            <li>Search in the issue section first. Somebody might have reported the same bug and/or asked similar question. 
+            If there's none, then please create a new issue in <a href="https://github.com/isteven/angular-route-rage/issues">https://github.com/isteven/angular-route-rage/issues</a>.</li>
+            <li>Try to reproduce the problem in JSFiddle or Plunker (or any other online JS collaboration tool), and include the URL in the issue you are creating.</li>
+        </ul>
+
+        <h2>Note</h2>
+        <ul>            
+            <li>This directive is a practical solution, not a performance champion. It will not win any code efficiency competition.</li>
+            <li>As for the moment, developments are on going, so I am not accepting pull requests. I will choose &  add them manually instead.</li>
+            <li>If you like / use this directive in your awesome projects, star this repo. It's a huge motivation for me. Would also love to hear from you if you use it in an open source project. Thanks!</li>                    
+            <li>This manual is created using AngularJS seed app.</li>                    
+        </ul>      
+
+        <h2>Shameless Self-Promotional Effort</h2>
+        Have a look on my other directives for AngularJS:
+        <ul>     
+            <li><a href="https://github.com/isteven/angular-multi-select" target='_blank'>AngularJS Multi Select</a></li>
+            <li><a href="https://github.com/isteven/angular-omni-bar" target='_blank'>AngularJS Omni Bar</a></li>
+            <!-- <li><a href="https://github.com/isteven/angular-route-rage" target='_blank'>AngularJS Route Rage</a></li> -->
+        </ul>
+
+        <h2>Licence</h2>
+        Released under the MIT license:
+        <div class="license">
+        <p>The MIT License (MIT)</p>
+
+        <p>Copyright (c) 2014 Ignatius Steven (https://github.com/isteven)</p>
+
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</p>
+
+<p>The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.</p>
+
+<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE</p>
+</div>
+        <h3>&nbsp;</h3>
+    </div>
+    -->
+
+</body>
+</html>
