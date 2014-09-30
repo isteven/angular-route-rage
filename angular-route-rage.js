@@ -92,12 +92,18 @@ angular.module( 'isteven-rr', ['ng'] ).directive( 'istevenRr' , [
                 // We evaluate the expression only if it's.. well, an expression
                 var processedVar = tempVal;                
                 if ( isExpression ) {
-                    processedVar = $scope.$eval( tempVal );                
+                    try {
+                        processedVar = $scope.$eval( tempVal );  
+                    } catch (e) {                        
+                        // On error, do nothing. Just keep going.
+                    }                                  
                 }
             
                 // Replace the token with the processed result                
                 domString = domString.replace( value, processedVar );                                
             });                
+
+            console.log( domString );
                                                 
             // Attach back the domString in the view - or 'replacing'            
             element[0].outerHTML = $interpolate( domString )( $scope );                                           

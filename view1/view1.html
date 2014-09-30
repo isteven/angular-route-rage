@@ -5,7 +5,7 @@
     <title>AngularJS Route Rage directive | Use $routeParams variable in your view!</title>        
     
 </head>
-
+<body>
     <div id="container">
         <h1>AngularJS RouteRage</h1>
         <h4>An AngularJS directive which allows you to directly use $routeParams variables in your view
@@ -42,13 +42,12 @@
 
 <h2 class="marginTop">Usage</h2>
 Include the required files. We'll need the AngularJS, angular-route, and the angular-route-rage javascripts.
-<div hljs class="soloCode">
-<script src="angular.min.js"></script>
-<script src="angular-route.min.js"></script>    
+<div hljs class="soloCode" source='"<script src=\"angular.min.js\"></script>
+<script src=\"angular-route.min.js\"></script>    
 ...
-<script src="angular-route-rage.js"></script>    
+<script src=\"angular-route-rage.js\"></script>    
 ...
-</div>
+</div>"'></div>
 
 Load the directive into your AngularJS app. This directive also requires angular-route (ngRoute) module, so don't forget to load it as well:
 <div hljs class="soloCode">
@@ -90,7 +89,6 @@ Define the directive in your view, such as:<br />
     Your $routeParams says: [[param1]] [[param2]]
 </div>"'>
 </div>
-Yes, you can even use it on the <code> body </code> tag & process everything inside it, but on extreme cases, it might slow down your system, so be considerate.
 
 <h4>3) Accept simple expressions</h4>
 <div hljs class="soloCode" source='"<a isteven-rr href=\"#/product/[[categoryId]]/[[subCategoryId]]/[[productId - 1]]\">
@@ -107,8 +105,15 @@ or
     Param 1 + Param 2 = [[param1 + param2]]
 </div>"'>
 </div>
-Take note that this will only work if the expression is $eval()-able. For example, 10 * 6 will return 60, but "lorem ipsum" + 5 will return undefined (Or worse - I'm not responsible for that). 
-<br />If it's $eval()-able but still doesn't work.. well maybe your expression is too complicated, sorry :)
+
+        <h2 class="marginTop">Limitations</h2>
+        Some known limitations:
+        <ul>
+            <li>You can't use it on the <code>body</code> tag.</li>
+            <li>It's basically a search and replace directive. It will search and replace all '[[' ']]' it can find inside the element. If you don't want to replace some of those '[['']]', put them outside of the directive element.</li>
+            <li>It uses $eval and $interpolate, so it MIGHT converts or encode some special characters, for example: <code><</code> to <code>&amp;lt;</code>.</li>        
+            <li>Expression will only work if it is $eval()-able. For example, 10 * 6 will return 60, but "lorem ipsum" + 5 will return undefined (or error). If it's $eval()-able but still doesn't work.. well maybe your expression is too complicated, sorry :)</li>
+        </ul>
 
         <h2 class="marginTop">Dependency</h2>
         AngularJS v1.2.1. Other versions may or may not work. Please test first.
