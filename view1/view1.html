@@ -106,13 +106,19 @@ or
 </div>"'>
 </div>
 
+or with a $scope variable:
+<div hljs source='"<div isteven-rr>
+        Param 1 + Param 2 = [[param1 + {{scopeVar1}}]]
+</div>"'>
+</div>
+
         <h2 class="marginTop">Limitations</h2>
         Some known limitations:
         <ul>
             <li>Don't declare it on the <code>body</code> tag.</li>            
             <li>Declare the directive as close as possible to the '[[' ... ']]' you want to replace. Don't define it on the parent of the parent of the parent element. For example:
             <br />
-            <span class="bg-success"><span class="glyphicon glyphicon-ok "></span> YES</span>
+            <div class="label label-success"><span class="glyphicon glyphicon-ok "></span> Yes</div>
             <div hljs source='"<div>
     <span>
         <h5>
@@ -124,7 +130,7 @@ or
 </div>"'>
             </div>
 
-            <span class="bg-success"><span class="glyphicon glyphicon-ok "></span> YES</span>
+            <div class="label label-success"><span class="glyphicon glyphicon-ok "></span> Yes</div>
             <div hljs source='"<div>
     <span isteven-rr>
         [[paramX]] [[paramY]]
@@ -132,7 +138,7 @@ or
 </div>"'>
             </div>            
             
-            <span class="bg-danger"><span class="glyphicon glyphicon-remove"></span> NO </span>
+            <div class="label label-danger"><span class="glyphicon glyphicon-remove"></span> No</div>
             <div hljs source='"<div isteven-rr>
     <span>
         <h5>
@@ -147,12 +153,12 @@ or
 
             <li>Similarly, when combining with other DOM-modifying directive, put the isteven-rr in the same level, or as a child element of that directive. Never outside. Example:
             <br />
-<span class="bg-success"><span class="glyphicon glyphicon-ok "></span> YES</span>
+<div class="label label-success"><span class="glyphicon glyphicon-ok "></span> Yes</div>
             <div hljs source='"<div ng-repeat=\"car in cars\" isteven-rr>    
     \{\{car.name\}\} [[paramX]] [[paramY]] 
 </div>"'>
             </div>
-<span class="bg-success"><span class="glyphicon glyphicon-ok "></span> YES</span>
+<div class="label label-success"><span class="glyphicon glyphicon-ok "></span> Yes</div>
             <div hljs source='"<div ng-repeat=\"car in cars\">    
     \{\{car.name\}\} 
     <span isteven-rr>
@@ -161,7 +167,7 @@ or
 </div>"'>
             </div>
             
-            <span class="bg-danger"><span class="glyphicon glyphicon-remove"></span> NO </span>
+            <div class="label label-danger"><span class="glyphicon glyphicon-remove"></span> No</div>
             <div hljs source='"<div isteven-rr>
     <div ng-repeat=\"car in cars\">    
         \{\{car.name\}\} [[paramX]] [[paramY]] 
