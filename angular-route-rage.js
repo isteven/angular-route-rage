@@ -60,7 +60,7 @@ angular.module( 'isteven-rr', ['ng'] ).directive( 'istevenRr' , [
 
             // Just copy $routeParams into array. Easier to work with.
             var arrRouteParams = Object.keys( $routeParams );
-
+            
             // Find the "route tokens"( those [[...]] ) from this domString 
             var scopePars = domString.match( /\[\[[^\]\]]+\]\]/g );     
             
@@ -87,17 +87,27 @@ angular.module( 'isteven-rr', ['ng'] ).directive( 'istevenRr' , [
                     // Replace the vars with the $routeParams
                     var regex = new RegExp( arrRouteParams[ i ] , 'g' );
                     tempVal = tempVal.replace( regex, $routeParams[ arrRouteParams[ i ] ] );                    
-                };
+                };                
 
                 // We evaluate the expression only if it's.. well, an expression
                 var processedVar = tempVal;                
                 if ( isExpression ) {
-                    processedVar = $scope.$eval( tempVal );                
+
+                    try {
+                        
+                        // Parse the $scope variables first before we eval, if any.
+                        tempVal = $interpolate( tempVal )( $scope );                                           
+                        // $eval() it..
+                        processedVar = $scope.$eval( tempVal );  
+
+                    } catch (e) {                        
+                        // On error, do nothing. Just keep going.
+                    }                                  
                 }
             
                 // Replace the token with the processed result                
                 domString = domString.replace( value, processedVar );                                
-            });                
+            });                            
                                                 
             // Attach back the domString in the view - or 'replacing'            
             element[0].outerHTML = $interpolate( domString )( $scope );                                           
