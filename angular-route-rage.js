@@ -101,9 +101,7 @@ angular.module( 'isteven-rr', ['ng'] ).directive( 'istevenRr' , [
             
                 // Replace the token with the processed result                
                 domString = domString.replace( value, processedVar );                                
-            });                
-
-            console.log( domString );
+            });                            
                                                 
             // Attach back the domString in the view - or 'replacing'            
             element[0].outerHTML = $interpolate( domString )( $scope );                                           

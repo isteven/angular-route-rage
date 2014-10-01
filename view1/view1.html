@@ -111,6 +111,33 @@ or
         <ul>
             <li>You can't use it on the <code>body</code> tag.</li>
             <li>It's basically a search and replace directive. It will search and replace all '[[' ']]' it can find inside the element. If you don't want to replace some of those '[['']]', put them outside of the directive element.</li>
+            <li>For the same reason as above, define it as close as possible to the '[[' ']]' you want to replace. Don't define it on the parent of the parent of the parent element. For example:<br />
+            <br />
+            <span class="bg-success"><span class="glyphicon glyphicon-ok "></span> YES</span>
+            <div hljs source='"<div>
+    <span>
+        <h5>
+            <a href=\"#/whatever/[[paramX]]/[[paramY]]\" isteven-rr>
+                Click here
+            </a>
+        </h5>
+    </span>
+</div>"'>
+            </div>
+            
+            <span class="bg-danger"><span class="glyphicon glyphicon-remove"></span> NO </span>
+            <div hljs source='"<div isteven-rr>
+    <span>
+        <h5>
+            <a href=\"#/whatever/[[paramX]]/[[paramY]]\">
+                Click here
+            </a>
+        </h5>
+    </span>
+</div>"'>
+            </div>
+            * It will work, but I'm not responsible any problem that might arise.<br /><br /></li>
+
             <li>It uses $eval and $interpolate, so it MIGHT converts or encode some special characters, for example: <code><</code> to <code>&amp;lt;</code>.</li>        
             <li>Expression will only work if it is $eval()-able. For example, 10 * 6 will return 60, but "lorem ipsum" + 5 will return undefined (or error). If it's $eval()-able but still doesn't work.. well maybe your expression is too complicated, sorry :)</li>
         </ul>
