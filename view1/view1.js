@@ -14,17 +14,6 @@ angular.module('myApp.view1', [ 'ngRoute', 'isteven-rr', 'hljs' ])
     });  
 }])
 
-.controller('View1Ctrl', [ '$scope', '$routeParams', function( $scope, $routeParams ) {   
-    $scope.arrTest = [
-        {
-            value: 1
-        },
-        {
-            value: 2
-        },
-        {
-            value: 3
-        }
-    ];
+.controller('View1Ctrl', [ '$scope', '$routeParams', function( $scope, $routeParams ) {       
 }]);
 

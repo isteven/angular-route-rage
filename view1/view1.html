@@ -109,9 +109,8 @@ or
         <h2 class="marginTop">Limitations</h2>
         Some known limitations:
         <ul>
-            <li>You can't use it on the <code>body</code> tag.</li>
-            <li>It's basically a search and replace directive. It will search and replace all '[[' ']]' it can find inside the element. If you don't want to replace some of those '[['']]', put them outside of the directive element.</li>
-            <li>For the same reason as above, define it as close as possible to the '[[' ']]' you want to replace. Don't define it on the parent of the parent of the parent element. For example:<br />
+            <li>Don't declare it on the <code>body</code> tag.</li>            
+            <li>Declare the directive as close as possible to the '[[' ... ']]' you want to replace. Don't define it on the parent of the parent of the parent element. For example:
             <br />
             <span class="bg-success"><span class="glyphicon glyphicon-ok "></span> YES</span>
             <div hljs source='"<div>
@@ -124,6 +123,14 @@ or
     </span>
 </div>"'>
             </div>
+
+            <span class="bg-success"><span class="glyphicon glyphicon-ok "></span> YES</span>
+            <div hljs source='"<div>
+    <span isteven-rr>
+        [[paramX]] [[paramY]]
+    </span>
+</div>"'>
+            </div>            
             
             <span class="bg-danger"><span class="glyphicon glyphicon-remove"></span> NO </span>
             <div hljs source='"<div isteven-rr>
@@ -136,10 +143,35 @@ or
     </span>
 </div>"'>
             </div>
-            * It will work, but I'm not responsible any problem that might arise.<br /><br /></li>
+            * It MIGHT work but I'm not responsible any problem that might arise.<br /><br /></li>
 
-            <li>It uses $eval and $interpolate, so it MIGHT converts or encode some special characters, for example: <code><</code> to <code>&amp;lt;</code>.</li>        
-            <li>Expression will only work if it is $eval()-able. For example, 10 * 6 will return 60, but "lorem ipsum" + 5 will return undefined (or error). If it's $eval()-able but still doesn't work.. well maybe your expression is too complicated, sorry :)</li>
+            <li>Similarly, when combining with other DOM-modifying directive, put the isteven-rr in the same level, or as a child element of that directive. Never outside. Example:
+            <br />
+<span class="bg-success"><span class="glyphicon glyphicon-ok "></span> YES</span>
+            <div hljs source='"<div ng-repeat=\"car in cars\" isteven-rr>    
+    \{\{car.name\}\} [[paramX]] [[paramY]] 
+</div>"'>
+            </div>
+<span class="bg-success"><span class="glyphicon glyphicon-ok "></span> YES</span>
+            <div hljs source='"<div ng-repeat=\"car in cars\">    
+    \{\{car.name\}\} 
+    <span isteven-rr>
+        [[paramX]] [[paramY]]
+    </span>
+</div>"'>
+            </div>
+            
+            <span class="bg-danger"><span class="glyphicon glyphicon-remove"></span> NO </span>
+            <div hljs source='"<div isteven-rr>
+    <div ng-repeat=\"car in cars\">    
+        \{\{car.name\}\} [[paramX]] [[paramY]] 
+    </div>
+</div>"'>
+            </div>            
+            * It MIGHT work but again, I'm not responsible any problem that might arise.<br /><br /></li>
+            <li>As you can see, it's important to declare this directive on the right element, so, in case you have any problem, try to declare the directive in different element first.</li>
+            <li>It MIGHT converts or encode some special characters, for example: <code><</code> to <code>&amp;lt;</code>.</li>                    
+            <li>Expression will only work if it is $eval()-able. For example, 10 * 6 will return 60. I don't know what "lorem ipsum" + 5 will return. Also, if it's $eval()-able but still doesn't work.. well maybe your expression is too complicated, sorry :)</li>
         </ul>
 
         <h2 class="marginTop">Dependency</h2>
