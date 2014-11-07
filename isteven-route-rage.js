@@ -4,7 +4,7 @@
  * Use $routeParams variables directly in your view 
  *
  * Project started on: Thu, 25 Sep 2014 - 09:21:54 
- * Current version: 1.0.0
+ * Current version: 2.0.0
  * 
  * Released under the MIT License
  * --------------------------------------------------------------------------------
