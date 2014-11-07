@@ -4,7 +4,7 @@
  * Use $routeParams variables directly in your view 
  *
  * Project started on: Thu, 25 Sep 2014 - 09:21:54 
- * Current version: 1.0.0
+ * Current version: 2.0.0
  * 
  * Released under the MIT License
  * --------------------------------------------------------------------------------
@@ -62,7 +62,7 @@ angular.module( 'isteven-rr', ['ng'] ).directive( 'istevenRr' , [
             var arrRouteParams = Object.keys( $routeParams );
             
             // Find the "route tokens"( those [[...]] ) from this domString 
-            var scopePars = domString.match( /\[\[[^\]\]]+\]\]/g );     
+            var scopePars = domString.match( /\[\[rr:[^\]\]]+\]\]/g );     
             
             angular.forEach( scopePars, function( value, key ) {
 
@@ -73,7 +73,7 @@ angular.module( 'isteven-rr', ['ng'] ).directive( 'istevenRr' , [
                 var isExpression = true;
 
                 // Some clean ups
-                var tempVal = value.replace( /\[\[/, '' );
+                var tempVal = value.replace( /\[\[rr:/, '' );
                 tempVal = tempVal.replace( /\]\]/, '' );             
 
                 // Find matches in route params                

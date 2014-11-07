@@ -5,7 +5,7 @@ Use $routeParams directly in your view
 Go to http://isteven.github.io/angular-route-rage
 
 ### Current Version
-1.0.0
+2.0.0
 
 ### Change Log
 See <a href="https://github.com/isteven/angular-route-rage/blob/master/CHANGELOG.md">CHANGELOG.md</a>

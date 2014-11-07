@@ -1,6 +1,6 @@
 {
     "name"      : "isteven-angular-route-rage",
-    "version"   : "v1.0.0",
+    "version"   : "v2.0.0",
     "main"      : [
         "angular-route-rage.js"
     ],
@@ -8,6 +8,7 @@
         ".git",
         ".gitignore",
         "bower.json",
-        "README.md"
+        "CHANGELOG.md"
+        "README.md",        
     ]
 }
