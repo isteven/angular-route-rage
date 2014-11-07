@@ -14,11 +14,11 @@
                 
         <br />
         <div hljs class="soloCode" source='"<span isteven-rr>
-    $routeParams says: [[param1]] [[param2]]
+    $routeParams says: [[rr:param1]] [[rr:param2]]
 </span>"'>
         </div>                
         <span isteven-rr>                            
-            <h2>$routeParams says: [[param1]] [[param2]]</h2>   
+            <h2>$routeParams says: [[rr:param1]] [[rr:param2]]</h2>   
             (Try changing the route parameters on your browser's address bar and hit ENTER or click 'Go' button on your browser)
         </span>                
 
@@ -33,10 +33,10 @@
         <h2 class="marginTop">Features</h2>
         <ul>
             <li>Use $routeParams variables in your view directly. No more copying $routeParams to $scope.</li> 
-            <li>Using [[ ... ]] brackets to differentiate it from $scope variables.</li>
+            <li>Using [[rr:... ]] brackets to differentiate it from $scope variables.</li>
             <li>Trigger it once on an element and use it anywhere within the element.</li>
-            <li>Allows you to use simple expressions with your $routeParams, for example: [[productId + 1]].</li>            
-            <li>Auto clean up unused [[ ... ]] variables, except on errors.</li>
+            <li>Allows you to use simple expressions with your $routeParams, for example: [[rr:productId + 1]].</li>            
+            <li>Auto clean up unused [[rr:... ]] variables, except on errors.</li>
             <li>Pure AngularJS. No extra dependency.</li>
         </ul> 
 
@@ -45,7 +45,7 @@ Include the required files. We'll need the AngularJS, angular-route, and the ang
 <div hljs class="soloCode" source='"<script src=\"angular.min.js\"></script>
 <script src=\"angular-route.min.js\"></script>    
 ...
-<script src=\"angular-route-rage.js\"></script>    
+<script src=\"isteven-route-rage.js\"></script>    
 ...
 </div>"'></div>
 
@@ -71,44 +71,56 @@ angular.module( 'myApp' ).config( [ '$routeProvider', function( $routeProvider )
 </div>
 
 Define the directive in your view, such as:<br />
-<div hljs class="soloCode" source='"<a href=\"#/view1/[[param1]]/[[param2]]\" isteven-rr>
+<div hljs class="soloCode" source='"<a href=\"#/view1/[[rr:param1]]/[[rr:param2]]\" isteven-rr>
     Link
 </a>"'>
 </div>
 <strong>!IMPORTANT</strong>: this directive is attribute only!
+<br /><br />And that's it. Meanwhile, our controller stays empty throughout the demo...
+<div hljs class="soloCode">
+...
+.controller( 'View1Ctrl', function() {       
+    
+    // Yaay, no more copying $routeParams into $scope.
+    // Stop polutting your $scope!
+
+});
+...
+</div>
+
 
 <h2 class="marginTop">Other Samples</h2>
 
 <h4>1) Use it on an element.</h4>
-<div hljs class="soloCode" source='"<div isteven-rr data-holder1=\"[[param1]]\" data-holder2=\"[[param2]]\">
+<div hljs class="soloCode" source='"<div isteven-rr data-holder1=\"[[rr:param1]]\" data-holder2=\"[[rr:param2]]\">
 </div>"'>
 </div>
 
 <h4>2) Well, once you define it on an element, you can use it anywhere inside that element.</h4>
 <div hljs class="soloCode" source='"<div isteven-rr>
-    Your $routeParams says: [[param1]] [[param2]]
+    Your $routeParams says: [[rr:param1]] [[rr:param2]]
 </div>"'>
 </div>
 
 <h4>3) Accept simple expressions</h4>
-<div hljs class="soloCode" source='"<a isteven-rr href=\"#/product/[[categoryId]]/[[subCategoryId]]/[[productId - 1]]\">
+<div hljs class="soloCode" source='"<a isteven-rr href=\"#/product/[[rr:categoryId]]/[[rr:subCategoryId]]/[[rr:productId - 1]]\">
     &laquo; Prev
 </a>"'>
 </div>
-<div hljs class="soloCode" source='"<a isteven-rr href=\"#/product/[[categoryId]]/[[subCategoryId]]/[[productId + 1]]\">
+<div hljs class="soloCode" source='"<a isteven-rr href=\"#/product/[[rr:categoryId]]/[[rr:subCategoryId]]/[[rr:productId + 1]]\">
     Next &raquo; 
 </a>"'>
 </div>
 
 or
 <div hljs source='"<div isteven-rr>
-    Param1 + Param2 = [[param1 + param2]]
+    Param1 + Param2 = [[rr:param1 + param2]]
 </div>"'>
 </div>
 
 or with a $scope variable:
 <div hljs source='"<div isteven-rr>
-    Param1 + scopeVar = [[param1 + \{\{scopeVar1}}]]
+    Param1 + scopeVar = [[rr:param1 + \{\{scopeVar1}}]]
 </div>"'>
 </div>
 
@@ -116,13 +128,13 @@ or with a $scope variable:
         Some known limitations:
         <ul>
             <li>Don't declare it on the <code>body</code> tag.</li>            
-            <li>Declare the directive as close as possible to the '[[' ... ']]' you want to replace. Don't define it on the parent of the parent of the parent element. For example:
+            <li>Declare the directive as close as possible to the '[[rr: ... ]]' you want to replace. Don't define it on the parent of the parent of the parent element. For example:
             <br />
             <div class="label label-success"><span class="glyphicon glyphicon-ok "></span> Yes</div>
             <div hljs source='"<div>
     <span>
         <h5>
-            <a href=\"#/whatever/[[paramX]]/[[paramY]]\" isteven-rr>
+            <a href=\"#/whatever/[[rr:paramX]]/[[rr:paramY]]\" isteven-rr>
                 Click here
             </a>
         </h5>
@@ -133,7 +145,7 @@ or with a $scope variable:
             <div class="label label-success"><span class="glyphicon glyphicon-ok "></span> Yes</div>
             <div hljs source='"<div>
     <span isteven-rr>
-        [[paramX]] [[paramY]]
+        [[rr:paramX]] [[rr:paramY]]
     </span>
 </div>"'>
             </div>            
@@ -142,27 +154,27 @@ or with a $scope variable:
             <div hljs source='"<div isteven-rr>
     <span>
         <h5>
-            <a href=\"#/whatever/[[paramX]]/[[paramY]]\">
+            <a href=\"#/whatever/[[rr:paramX]]/[[rr:paramY]]\">
                 Click here
             </a>
         </h5>
     </span>
 </div>"'>
             </div>
-            * It MIGHT work but I'm not responsible any problem that might arise.<br /><br /></li>
+            * It MIGHT work but I'm not responsible for any problem that might arise.<br /><br /></li>
 
             <li>Similarly, when combining with other DOM-modifying directives, put the isteven-rr in the same level, or as a child element of that directive. Never outside. Example:
             <br />
 <div class="label label-success"><span class="glyphicon glyphicon-ok "></span> Yes</div>
             <div hljs source='"<div ng-repeat=\"car in cars\" isteven-rr>    
-    \{\{car.name\}\} [[paramX]] [[paramY]] 
+    \{\{car.name\}\} [[rr:paramX]] [[rr:paramY]] 
 </div>"'>
             </div>
 <div class="label label-success"><span class="glyphicon glyphicon-ok "></span> Yes</div>
             <div hljs source='"<div ng-repeat=\"car in cars\">    
     \{\{car.name\}\} 
     <span isteven-rr>
-        [[paramX]] [[paramY]]
+        [[rr:paramX]] [[rr:paramY]]
     </span>
 </div>"'>
             </div>
@@ -170,15 +182,20 @@ or with a $scope variable:
             <div class="label label-danger"><span class="glyphicon glyphicon-remove"></span> No</div>
             <div hljs source='"<div isteven-rr>
     <div ng-repeat=\"car in cars\">    
-        \{\{car.name\}\} [[paramX]] [[paramY]] 
+        \{\{car.name\}\} [[rr:paramX]] [[rr:paramY]] 
     </div>
 </div>"'>
             </div>            
-            * It MIGHT work but again, I'm not responsible any problem that might arise.<br /><br /></li>
+            * It MIGHT work but again, I'm not responsible for any problem that might arise.<br /><br /></li>
             <li>As you can see, it's important to declare this directive on the right element, so, in case you have any problem, try to declare the directive in different element first.</li>
             <li>It MIGHT converts or encode some special characters, for example: <code><</code> to <code>&amp;lt;</code>.</li>                    
             <li>Expression will only work if it is $eval()-able. For example, 10 * 6 will return 60. I don't know what "lorem ipsum" + 5 will return. Also, if it's $eval()-able but still doesn't work.. well maybe your expression is too complicated, sorry :)</li>
         </ul>
+
+        <h2 class="marginTop">FAQ</h2>
+        I understand that some of you think this is overkill - because you can always copy $routeParams into $scope in your controller, and then use it in your view. 
+        So why do we need such directive? Well I've wrote the first answer, that is, to stop polluting your $scope. Second, it's an ideal, I guess. 
+        Such as.. why do you need to declare in controller, something that you actually only use in your view? 
 
         <h2 class="marginTop">Dependency</h2>
         AngularJS v1.2.1. Other versions may or may not work. Please test first.
